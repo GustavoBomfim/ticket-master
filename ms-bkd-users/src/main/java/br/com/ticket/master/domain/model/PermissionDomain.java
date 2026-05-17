@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class PermissionDomain {
 
-    private Long id;
+    private Integer id;
 
     private String name;
 
@@ -14,7 +14,7 @@ public class PermissionDomain {
 
     private LocalDateTime updatedAt;
 
-    private PermissionDomain(Long id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    private PermissionDomain(Integer id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.description = description;

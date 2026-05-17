@@ -1,11 +1,10 @@
 package br.com.ticket.master.domain.model;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class RoleDomain {
 
-    private UUID id;
+    private Integer id;
 
     private String name;
 
@@ -15,7 +14,7 @@ public class RoleDomain {
 
     private LocalDateTime updatedAt;
 
-    private RoleDomain(UUID id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    private RoleDomain(Integer id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.description = description;
