@@ -1,9 +1,12 @@
 package br.com.ticket.master.domain.model;
 
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
+@Getter
 public class UserDomain {
 
     private UUID id;
