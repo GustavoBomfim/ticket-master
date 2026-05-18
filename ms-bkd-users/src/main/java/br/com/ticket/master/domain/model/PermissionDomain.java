@@ -1,7 +1,10 @@
 package br.com.ticket.master.domain.model;
 
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
+@Getter
 public class PermissionDomain {
 
     private Integer id;
