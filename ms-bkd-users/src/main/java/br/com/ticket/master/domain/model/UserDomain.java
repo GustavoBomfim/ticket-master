@@ -43,13 +43,13 @@ public class UserDomain {
         this.deletedAt = deletedAt;
     }
 
-    public UserDomain createUser(String name, String email, String password) {
+    public static UserDomain createUser(String name, String email, String password) {
         initialValidations(name, email, password);
         return new UserDomain(null, name, email, password, null, null, null,
                 null, null);
     }
 
-    private void initialValidations(String name, String email, String password) {
+    private static void initialValidations(String name, String email, String password) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name is required");
         }
@@ -61,6 +61,12 @@ public class UserDomain {
         if (password == null || password.isEmpty()) {
             throw new IllegalArgumentException("Password is required");
         }
+    }
+
+    public static UserDomain restore(UUID id, String name, String email, String password, AddressDomain address,
+                                     Set<RoleDomain> role, LocalDateTime createdAt, LocalDateTime updatedAt,
+                                     LocalDateTime deletedAt){
+        return new UserDomain(id, name, email , password, address, role, createdAt, updatedAt, deletedAt);
     }
 
 }
