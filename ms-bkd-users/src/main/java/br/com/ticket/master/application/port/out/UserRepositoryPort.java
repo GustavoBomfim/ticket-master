@@ -8,4 +8,6 @@ public interface UserRepositoryPort {
     UserDomain save(UserDomain user);
 
     Optional<UserDomain> findById(UUID id);
+    
+    UserDomain update(UserDomain user);
 }

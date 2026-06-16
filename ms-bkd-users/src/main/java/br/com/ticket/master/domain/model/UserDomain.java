@@ -63,6 +63,18 @@ public class UserDomain {
         }
     }
 
+    public void updateName(String name) {
+        if (name != null && !name.trim().isEmpty()) {
+            this.name = name;
+        }
+    }
+
+    public void updateEmail(String email) {
+        if (email != null && !email.trim().isEmpty()) {
+            this.email = email;
+        }
+    }
+
     public static UserDomain restore(UUID id, String name, String email, String password, AddressDomain address,
                                      Set<RoleDomain> role, LocalDateTime createdAt, LocalDateTime updatedAt,
                                      LocalDateTime deletedAt){
@@ -70,4 +82,3 @@ public class UserDomain {
     }
 
 }
-

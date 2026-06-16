@@ -39,4 +39,18 @@ public class UserRepositoryPortAdapter implements UserRepositoryPort {
         return userEntity.map(UserPersistenceMapper::toDomain);
     }
 
+    @Transactional
+    @Override
+    public UserDomain update(UserDomain user) {
+        UserEntity userEntity = panacheRepository.findByIdOptional(user.getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        userEntity.updateName(user.getName());
+        userEntity.updateEmail(user.getEmail());
+
+        panacheRepository.persist(userEntity);
+
+        return UserPersistenceMapper.toDomain(userEntity);
+    }
+
 }

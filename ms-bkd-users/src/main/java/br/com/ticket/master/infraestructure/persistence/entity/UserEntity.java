@@ -70,4 +70,12 @@ public class UserEntity {
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
     }
+
+    public void updateName(String name) {
+        this.name = name;
+    }
+
+    public void updateEmail(String email) {
+        this.email = email;
+    }
 }

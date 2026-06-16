@@ -1,9 +1,13 @@
 package br.com.ticket.master.infraestructure.rest.controller.mapper;
 
 import br.com.ticket.master.application.port.in.command.CreateUserCommand;
+import br.com.ticket.master.application.port.in.command.UpdateUserCommand;
 import br.com.ticket.master.domain.model.UserDomain;
 import br.com.ticket.master.infraestructure.rest.dto.request.CreateUserRequestDTO;
+import br.com.ticket.master.infraestructure.rest.dto.request.UpdateUserRequestDTO;
 import br.com.ticket.master.infraestructure.rest.dto.response.UserResponseDTO;
+
+import java.util.UUID;
 
 public class UserRestMapper {
 
@@ -12,6 +16,14 @@ public class UserRestMapper {
                 request.name(),
                 request.email(),
                 request.password()
+        );
+    }
+
+    public static UpdateUserCommand toUpdateUserCommand(UUID id, UpdateUserRequestDTO request) {
+        return new UpdateUserCommand(
+                id,
+                request.name(),
+                request.email()
         );
     }
 
