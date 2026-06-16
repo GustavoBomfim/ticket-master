@@ -1,14 +1,13 @@
 package br.com.ticket.master.infraestructure.rest.controller.v1;
 
 import br.com.ticket.master.application.port.in.CreateUserUseCase;
+import br.com.ticket.master.application.port.in.FindUserUseCase;
 import br.com.ticket.master.application.port.in.command.CreateUserCommand;
 import br.com.ticket.master.domain.model.UserDomain;
 import br.com.ticket.master.infraestructure.rest.controller.mapper.UserRestMapper;
 import br.com.ticket.master.infraestructure.rest.dto.request.CreateUserRequestDTO;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import br.com.ticket.master.infraestructure.rest.dto.response.UserResponseDTO;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
@@ -23,9 +22,11 @@ import java.util.UUID;
 public class UserController {
 
     private final CreateUserUseCase createUserUseCase;
+    private final FindUserUseCase findUserUseCase;
 
-    public UserController(CreateUserUseCase createUserUseCase) {
+    public UserController(CreateUserUseCase createUserUseCase,  FindUserUseCase findUserUseCase) {
         this.createUserUseCase = createUserUseCase;
+        this.findUserUseCase = findUserUseCase;
     }
 
     @POST
@@ -36,5 +37,17 @@ public class UserController {
         UserDomain userDomain = createUserUseCase.execute(userCommand);
 
         return RestResponse.status(Response.Status.CREATED, userDomain.getId());
+    }
+
+
+    @GET
+    @Path("/{userId}")
+    public RestResponse<UserResponseDTO> findUser(@PathParam("userId") UUID userId){
+
+        UserDomain userDomain = findUserUseCase.execute(userId);
+
+        UserResponseDTO userResponseDTO = UserRestMapper.toUserResponseDTO(userDomain);
+
+        return RestResponse.status(Response.Status.OK, userResponseDTO);
     }
 }

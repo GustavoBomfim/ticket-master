@@ -8,6 +8,9 @@ import br.com.ticket.master.infraestructure.persistence.repository.UserRepositor
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @ApplicationScoped
 public class UserRepositoryPortAdapter implements UserRepositoryPort {
 
@@ -28,4 +31,12 @@ public class UserRepositoryPortAdapter implements UserRepositoryPort {
 
         return UserPersistenceMapper.toDomain(userEntity);
     }
+
+    @Transactional
+    @Override
+    public Optional<UserDomain> findById(UUID id) {
+        Optional<UserEntity> userEntity = panacheRepository.findByIdOptional(id);
+        return userEntity.map(UserPersistenceMapper::toDomain);
+    }
+
 }
