@@ -3,6 +3,7 @@ package br.com.ticket.master.application.service;
 import br.com.ticket.master.application.port.in.UpdateAddressUseCase;
 import br.com.ticket.master.application.port.in.command.UpdateAddressCommand;
 import br.com.ticket.master.application.port.out.AddressRepositoryPort;
+import br.com.ticket.master.domain.exception.ResourceNotFoundException;
 import br.com.ticket.master.domain.model.AddressDomain;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.slf4j.Logger;
@@ -25,8 +26,7 @@ public class UpdateAddressService implements UpdateAddressUseCase {
         AddressDomain existingAddress = addressRepository.findById(command.addressId())
                 .orElseThrow(() -> {
                     log.warn("Endereço com ID: {} não encontrado para atualização.", command.addressId());
-                    // TODO: Lançar exceção de negócio
-                    return new RuntimeException("Address not found");
+                    return new ResourceNotFoundException("Address", command.addressId());
                 });
 
         existingAddress.update(

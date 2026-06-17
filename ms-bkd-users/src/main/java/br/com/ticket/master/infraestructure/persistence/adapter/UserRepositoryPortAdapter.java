@@ -1,6 +1,7 @@
 package br.com.ticket.master.infraestructure.persistence.adapter;
 
 import br.com.ticket.master.application.port.out.UserRepositoryPort;
+import br.com.ticket.master.domain.exception.ResourceNotFoundException;
 import br.com.ticket.master.domain.model.UserDomain;
 import br.com.ticket.master.infraestructure.persistence.entity.UserEntity;
 import br.com.ticket.master.infraestructure.persistence.mapper.UserPersistenceMapper;
@@ -43,7 +44,7 @@ public class UserRepositoryPortAdapter implements UserRepositoryPort {
     @Override
     public UserDomain update(UserDomain user) {
         UserEntity userEntity = panacheRepository.findByIdOptional(user.getId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User", user.getId()));
 
         userEntity.updateName(user.getName());
         userEntity.updateEmail(user.getEmail());

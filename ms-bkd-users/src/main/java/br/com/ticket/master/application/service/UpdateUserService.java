@@ -3,6 +3,7 @@ package br.com.ticket.master.application.service;
 import br.com.ticket.master.application.port.in.UpdateUserUseCase;
 import br.com.ticket.master.application.port.in.command.UpdateUserCommand;
 import br.com.ticket.master.application.port.out.UserRepositoryPort;
+import br.com.ticket.master.domain.exception.ResourceNotFoundException;
 import br.com.ticket.master.domain.model.UserDomain;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -25,7 +26,7 @@ public class UpdateUserService implements UpdateUserUseCase {
         log.info("Iniciando a atualização para o usuário com ID: {}", command.id());
 
         UserDomain existingUser = userRepositoryPort.findById(command.id())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User", command.id()));
 
         existingUser.updateName(command.name());
         existingUser.updateEmail(command.email());

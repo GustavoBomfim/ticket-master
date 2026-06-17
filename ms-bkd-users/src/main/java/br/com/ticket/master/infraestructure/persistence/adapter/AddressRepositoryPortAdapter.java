@@ -1,6 +1,7 @@
 package br.com.ticket.master.infraestructure.persistence.adapter;
 
 import br.com.ticket.master.application.port.out.AddressRepositoryPort;
+import br.com.ticket.master.domain.exception.ResourceNotFoundException;
 import br.com.ticket.master.domain.model.AddressDomain;
 import br.com.ticket.master.infraestructure.persistence.entity.AddressEntity;
 import br.com.ticket.master.infraestructure.persistence.entity.UserEntity;
@@ -28,7 +29,7 @@ public class AddressRepositoryPortAdapter implements AddressRepositoryPort {
     @Transactional
     public AddressDomain save(AddressDomain address, UUID userId) {
         UserEntity userEntity = userRepository.findByIdOptional(userId)
-                .orElseThrow(() -> new RuntimeException("User not found to associate address"));
+                .orElseThrow(() -> new ResourceNotFoundException("User", userId));
         
         AddressEntity addressEntity = AddressPersistenceMapper.toEntity(address, userEntity);
         addressRepository.persist(addressEntity);
@@ -44,7 +45,7 @@ public class AddressRepositoryPortAdapter implements AddressRepositoryPort {
     @Transactional
     public AddressDomain update(AddressDomain address) {
         AddressEntity entity = addressRepository.findByIdOptional(address.getId())
-                .orElseThrow(() -> new RuntimeException("Address not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Address", address.getId()));
         
         entity.update(address.getStreet(), address.getNumber(), address.getCity(), address.getState(), address.getCountry(), address.getZipcode());
         addressRepository.persist(entity);

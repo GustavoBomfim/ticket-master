@@ -2,6 +2,7 @@ package br.com.ticket.master.application.service;
 
 import br.com.ticket.master.application.port.in.FindAddressUseCase;
 import br.com.ticket.master.application.port.out.AddressRepositoryPort;
+import br.com.ticket.master.domain.exception.ResourceNotFoundException;
 import br.com.ticket.master.domain.model.AddressDomain;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.slf4j.Logger;
@@ -25,8 +26,7 @@ public class FindAddressService implements FindAddressUseCase {
         return addressRepository.findById(addressId)
                 .orElseThrow(() -> {
                     log.warn("Endereço com ID: {} não encontrado.", addressId);
-                    // TODO: Lançar exceção de negócio (ex: AddressNotFoundException)
-                    return new RuntimeException("Address not found");
+                    return new ResourceNotFoundException("Address", addressId);
                 });
     }
 }
