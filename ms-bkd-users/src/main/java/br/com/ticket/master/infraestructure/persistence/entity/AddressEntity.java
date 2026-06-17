@@ -68,4 +68,25 @@ public class AddressEntity {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+    public void update(String street, String number, String city, String state, String country, String zipcode) {
+        if (street != null && !street.isBlank()) {
+            this.street = street;
+        }
+        if (number != null && !number.isBlank()) {
+            this.number = number;
+        }
+        if (city != null && !city.isBlank()) {
+            this.city = city;
+        }
+        if (state != null && !state.isBlank()) {
+            this.state = state;
+        }
+        if (country != null && !country.isBlank()) {
+            this.country = country;
+        }
+        if (zipcode != null && !zipcode.isBlank()) {
+            this.zipcode = zipcode;
+        }
+    }
 }
