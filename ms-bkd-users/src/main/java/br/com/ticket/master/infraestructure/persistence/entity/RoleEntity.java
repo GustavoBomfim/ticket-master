@@ -1,5 +1,6 @@
 package br.com.ticket.master.infraestructure.persistence.entity;
 
+import br.com.ticket.master.domain.model.RoleDomain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,4 +56,16 @@ public class RoleEntity {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+    public static RoleEntity restore(RoleDomain domain) {
+        if (domain == null) {
+            return null;
+        }
+
+        return new RoleEntity(domain.getId(), domain.getName(), domain.getDescription(), domain.getCreatedAt(),
+                domain.getUpdatedAt());
+
+    }
+
+
 }

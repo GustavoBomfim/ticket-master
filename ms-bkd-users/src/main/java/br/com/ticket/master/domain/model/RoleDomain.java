@@ -29,4 +29,8 @@ public class RoleDomain {
         return new RoleDomain(null, name, description, null, null);
     }
 
+
+    public static RoleDomain restore(Integer id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        return new RoleDomain(id, name, description, createdAt, updatedAt);
+    }
 }
